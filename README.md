@@ -3,6 +3,7 @@
 ## Tổng quan
 
 Script tự động phát hiện và xử lý lỗ hổng **CVE-2026-31431** — một lỗ hổng liên quan đến module kernel `algif_aead` (AF_ALG AEAD interface) trên các hệ thống Linux chạy kernel **>= 4.10**.
+
 (Created by TonyCao)
 
 ## CVE-2026-31431 là gì?
@@ -84,19 +85,18 @@ Script tự động phát hiện và xử lý lỗ hổng **CVE-2026-31431** —
 Khi áp dụng bản vá, script thực hiện 3 hành động:
 
 1. **Tạo file cấu hình modprobe** tại `/etc/modprobe.d/cve-2026-31431.conf`:
-   
+
    ```
    install algif_aead /bin/false
    blacklist algif_aead
    ```
-   
+
    - `install algif_aead /bin/false` — mỗi khi có lệnh yêu cầu nạp module, kernel sẽ chạy `/bin/false` thay vì nạp thật, khiến thao tác luôn thất bại
    - `blacklist algif_aead` — ngăn `udev` và các tool tự động nạp module
 
 2. **Gỡ module khỏi memory** — `modprobe -r algif_aead` (bỏ qua lỗi nếu module không được nạp)
 
 3. **Rebuild initramfs** — để đảm bảo module không bị nạp sớm trong quá trình boot:
-   
    - Ubuntu/Debian: `update-initramfs -u -k <kernel-hien-tai>`
    - CentOS/RHEL: `dracut -f --kver <kernel-hien-tai>`
 
