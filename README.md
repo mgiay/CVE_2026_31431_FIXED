@@ -3,6 +3,7 @@
 ## Tổng quan
 
 Script tự động phát hiện và xử lý lỗ hổng **CVE-2026-31431** — một lỗ hổng liên quan đến module kernel `algif_aead` (AF_ALG AEAD interface) trên các hệ thống Linux chạy kernel **>= 4.10**.
+(Created by TonyCao)
 
 ## CVE-2026-31431 là gì?
 
