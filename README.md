@@ -51,7 +51,7 @@ Vấn đề nảy sinh khi giao diện socket `AF_ALG` tương tác với system
 
 ```text
 ┌──────────────┐     splice()      ┌──────────┐     recv()      ┌──────────────┐
-│  File đọc    │ ───────────────▶  │  Pipe    │ ──────────────▶ │  AF_ALG      │
+│  File đọc    │ ──────────────▶  │  Pipe    │ ──────────────▶ │  AF_ALG      │
 │  (bất kỳ)    │                   │          │                 │  socket      │
 └──────────────┘                   └──────────┘                 └──────┬───────┘
                                                                        │
