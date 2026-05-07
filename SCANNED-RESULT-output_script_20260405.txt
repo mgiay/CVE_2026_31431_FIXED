@@ -1,0 +1,321 @@
+ok: [openway-notification] => {
+    "msg": "===== openway-notification STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-1160.66.1.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== openway-notification STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [openway-web-server] => {
+    "msg": "===== openway-web-server STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-1160.66.1.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== openway-web-server STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [openway-report-server] => {
+    "msg": "===== openway-report-server STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-1160.66.1.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== openway-report-server STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-ETL-JASER] => {
+    "msg": "===== MCR-ETL-JASER STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-693.17.1.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-ETL-JASER STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [openway-transwitch] => {
+    "msg": "===== openway-transwitch STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-1160.66.1.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== openway-transwitch STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-ETL-JASER-03] => {
+    "msg": "===== MCR-ETL-JASER-03 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-693.17.1.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-ETL-JASER-03 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-ETL-JASER-CHECKDUP] => {
+    "msg": "===== MCR-ETL-JASER-CHECKDUP STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-693.17.1.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-ETL-JASER-CHECKDUP STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-ETL-SFTP] => {
+    "msg": "===== MCR-ETL-SFTP STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-1062.12.1.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-ETL-SFTP STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [CI_GITLAB] => {
+    "msg": "===== CI_GITLAB STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-514.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== CI_GITLAB STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-MOBILE-SALE-APP-01] => {
+    "msg": "===== MCR-MOBILE-SALE-APP-01 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-862.3.2.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-MOBILE-SALE-APP-01 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-MOBILE-SALE-APP-02] => {
+    "msg": "===== MCR-MOBILE-SALE-APP-02 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-862.3.2.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-MOBILE-SALE-APP-02 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-MOBILE-SALE-02] => {
+    "msg": "===== MCR-MOBILE-SALE-02 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-957.5.1.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-MOBILE-SALE-02 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-MOBILE-SALE-01] => {
+    "msg": "===== MCR-MOBILE-SALE-01 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-957.5.1.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-MOBILE-SALE-01 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-MOBILE-SALE-04] => {
+    "msg": "===== MCR-MOBILE-SALE-04 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-957.5.1.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-MOBILE-SALE-04 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-MOBILE-SALE-03] => {
+    "msg": "===== MCR-MOBILE-SALE-03 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-957.5.1.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-MOBILE-SALE-03 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-CUSTOMER-CARE-APP-01] => {
+    "msg": "===== MCR-CUSTOMER-CARE-APP-01 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-693.21.1.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-CUSTOMER-CARE-APP-01 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-CUSTOMER-CARE-APP-02] => {
+    "msg": "===== MCR-CUSTOMER-CARE-APP-02 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-693.21.1.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-CUSTOMER-CARE-APP-02 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [CI-ANSIBLE] => {
+    "msg": "===== CI-ANSIBLE STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-1127.19.1.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== CI-ANSIBLE STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [ANSIBLE-BUILDCODE] => {
+    "msg": "===== ANSIBLE-BUILDCODE STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-1062.1.1.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== ANSIBLE-BUILDCODE STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-BPM-LIVE-APP02] => {
+    "msg": "===== MCR-BPM-LIVE-APP02 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-957.1.3.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-BPM-LIVE-APP02 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-BPM-REPORT-02] => {
+    "msg": "===== MCR-BPM-REPORT-02 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-862.11.6.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-BPM-REPORT-02 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-SALES-NETWORK-01] => {
+    "msg": "===== MCR-SALES-NETWORK-01 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-1127.8.2.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-SALES-NETWORK-01 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-BPM-REPORT-01] => {
+    "msg": "===== MCR-BPM-REPORT-01 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-514.21.1.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-BPM-REPORT-01 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-SALES-NETWORK-02] => {
+    "msg": "===== MCR-SALES-NETWORK-02 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-1127.8.2.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-SALES-NETWORK-02 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-DEBT-WEB-02] => {
+    "msg": "===== MCR-DEBT-WEB-02 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 2.6.32-220.el6.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-DEBT-WEB-02 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-DEBT-WEB-01] => {
+    "msg": "===== MCR-DEBT-WEB-01 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 2.6.32-220.el6.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-DEBT-WEB-01 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-QRCODE-01] => {
+    "msg": "===== MCR-QRCODE-01 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 4.4.0-142-generic\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-QRCODE-01 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-DEBT-APP-01] => {
+    "msg": "===== MCR-DEBT-APP-01 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 2.6.32-220.el6.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-DEBT-APP-01 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-DEBT-APP-02] => {
+    "msg": "===== MCR-DEBT-APP-02 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 2.6.32-220.el6.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-DEBT-APP-02 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-REPOSITORY-LIVE] => {
+    "msg": "===== MCR-REPOSITORY-LIVE STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-1160.108.1.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-REPOSITORY-LIVE STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-IESB-W-01] => {
+    "msg": "===== MCR-IESB-W-01 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-693.11.6.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-IESB-W-01 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-IESB-W-02] => {
+    "msg": "===== MCR-IESB-W-02 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-693.11.6.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-IESB-W-02 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-IESB-W-03] => {
+    "msg": "===== MCR-IESB-W-03 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-1160.6.1.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-IESB-W-03 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-IESB-W-04] => {
+    "msg": "===== MCR-IESB-W-04 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-1160.6.1.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-IESB-W-04 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-IESB-W-05] => {
+    "msg": "===== MCR-IESB-W-05 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-1160.6.1.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-IESB-W-05 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-IESB-W-06] => {
+    "msg": "===== MCR-IESB-W-06 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-957.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-IESB-W-06 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-ESB-DSS-W-INT-07] => {
+    "msg": "===== MCR-ESB-DSS-W-INT-07 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-693.11.6.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-ESB-DSS-W-INT-07 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-ESB-DSS-W-INT-08] => {
+    "msg": "===== MCR-ESB-DSS-W-INT-08 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-693.11.6.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-ESB-DSS-W-INT-08 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-ESB-DSS-W-INT-10] => {
+    "msg": "===== MCR-ESB-DSS-W-INT-10 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-693.11.6.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-ESB-DSS-W-INT-10 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-ESB-DSS-W-INT-09] => {
+    "msg": "===== MCR-ESB-DSS-W-INT-09 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-693.11.6.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-ESB-DSS-W-INT-09 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-ESB-DSS-W-INT-11] => {
+    "msg": "===== MCR-ESB-DSS-W-INT-11 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-693.11.6.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-ESB-DSS-W-INT-11 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-ESB-DSS-W-INT-12] => {
+    "msg": "===== MCR-ESB-DSS-W-INT-12 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-957.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-ESB-DSS-W-INT-12 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-ESB-DSS-W-INT-13] => {
+    "msg": "===== MCR-ESB-DSS-W-INT-13 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-957.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-ESB-DSS-W-INT-13 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-ESB-DSS-W-INT-15] => {
+    "msg": "===== MCR-ESB-DSS-W-INT-15 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-957.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-ESB-DSS-W-INT-15 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-ESB-DSS-W-INT-14] => {
+    "msg": "===== MCR-ESB-DSS-W-INT-14 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-957.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-ESB-DSS-W-INT-14 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-ESB-DSS-W-INT-16] => {
+    "msg": "===== MCR-ESB-DSS-W-INT-16 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-957.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-ESB-DSS-W-INT-16 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-ESB-DSS-W-INT-17] => {
+    "msg": "===== MCR-ESB-DSS-W-INT-17 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-957.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-ESB-DSS-W-INT-17 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-API-TM-02] => {
+    "msg": "===== MCR-API-TM-02 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-693.11.6.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-API-TM-02 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-API-TM-01] => {
+    "msg": "===== MCR-API-TM-01 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-693.11.6.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-API-TM-01 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-API-KM-02] => {
+    "msg": "===== MCR-API-KM-02 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-693.11.6.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-API-KM-02 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-API-MGT-01] => {
+    "msg": "===== MCR-API-MGT-01 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-693.11.6.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-API-MGT-01 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-API-KM-01] => {
+    "msg": "===== MCR-API-KM-01 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-693.11.6.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-API-KM-01 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-API-MGT-02] => {
+    "msg": "===== MCR-API-MGT-02 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-693.11.6.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-API-MGT-02 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-API-PUBLISHER] => {
+    "msg": "===== MCR-API-PUBLISHER STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-693.11.6.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-API-PUBLISHER STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-API-STORE] => {
+    "msg": "===== MCR-API-STORE STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-693.11.6.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-API-STORE STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-EESB-AS-02] => {
+    "msg": "===== MCR-EESB-AS-02 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-693.11.6.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-EESB-AS-02 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-EESB-AS-01] => {
+    "msg": "===== MCR-EESB-AS-01 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-693.11.6.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-EESB-AS-01 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-EESB-AS-03] => {
+    "msg": "===== MCR-EESB-AS-03 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-957.10.1.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-EESB-AS-03 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-EESB-DSS-01] => {
+    "msg": "===== MCR-EESB-DSS-01 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-693.11.6.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-EESB-DSS-01 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-EESB-AS-04] => {
+    "msg": "===== MCR-EESB-AS-04 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-957.10.1.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-EESB-AS-04 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-EESB-DSS-02] => {
+    "msg": "===== MCR-EESB-DSS-02 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-693.11.6.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-EESB-DSS-02 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-EESB-W-01] => {
+    "msg": "===== MCR-EESB-W-01 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-693.11.6.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-EESB-W-01 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-EESB-W-02] => {
+    "msg": "===== MCR-EESB-W-02 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-693.11.6.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-EESB-W-02 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-EESB-MGT-01] => {
+    "msg": "===== MCR-EESB-MGT-01 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-693.11.6.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-EESB-MGT-01 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-EESB-MGT-02] => {
+    "msg": "===== MCR-EESB-MGT-02 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-693.11.6.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-EESB-MGT-02 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-IESB-DSS-02] => {
+    "msg": "===== MCR-IESB-DSS-02 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-514.26.2.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-IESB-DSS-02 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-IESB-DSS-01] => {
+    "msg": "===== MCR-IESB-DSS-01 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-514.26.2.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-IESB-DSS-01 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-IESB-DSS-03] => {
+    "msg": "===== MCR-IESB-DSS-03 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-514.26.2.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-IESB-DSS-03 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-IESB-DSS-04] => {
+    "msg": "===== MCR-IESB-DSS-04 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-514.26.2.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-IESB-DSS-04 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-IESB-DSS-05] => {
+    "msg": "===== MCR-IESB-DSS-05 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-514.26.2.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-IESB-DSS-05 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-IESB-AS] => {
+    "msg": "===== MCR-IESB-AS STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-514.2.2.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-IESB-AS STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-IESB-MGT-01] => {
+    "msg": "===== MCR-IESB-MGT-01 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-514.26.1.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-IESB-MGT-01 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-NFS] => {
+    "msg": "===== MCR-NFS STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-514.26.2.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-NFS STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-IESB-MGT-02] => {
+    "msg": "===== MCR-IESB-MGT-02 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-514.26.2.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-IESB-MGT-02 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-ESB-LOGSTASH-01] => {
+    "msg": "===== MCR-ESB-LOGSTASH-01 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-693.11.6.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-ESB-LOGSTASH-01 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-ESB-LOGSTASH-02] => {
+    "msg": "===== MCR-ESB-LOGSTASH-02 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-862.11.6.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-ESB-LOGSTASH-02 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-ESB-LOGSTASH-03] => {
+    "msg": "===== MCR-ESB-LOGSTASH-03 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-693.11.6.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-ESB-LOGSTASH-03 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-ESB-KIBANA] => {
+    "msg": "===== MCR-ESB-KIBANA STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-693.11.6.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-ESB-KIBANA STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-MCPORTAL-CLUSTER-02] => {
+    "msg": "===== MCR-MCPORTAL-CLUSTER-02 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-957.5.1.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-MCPORTAL-CLUSTER-02 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-WEB-PORTAL-SERVICE-02] => {
+    "msg": "===== MCR-WEB-PORTAL-SERVICE-02 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-862.9.1.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-WEB-PORTAL-SERVICE-02 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-MCPORTAL-SERVICE-01] => {
+    "msg": "===== MCR-MCPORTAL-SERVICE-01 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-862.9.1.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-MCPORTAL-SERVICE-01 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-MCPORTAL-CLUSTER-01] => {
+    "msg": "===== MCR-MCPORTAL-CLUSTER-01 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-957.5.1.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-MCPORTAL-CLUSTER-01 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-WEB-PORTAL-SERVICE-03] => {
+    "msg": "===== MCR-WEB-PORTAL-SERVICE-03 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-862.9.1.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-WEB-PORTAL-SERVICE-03 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-MCPORTAL-APP-01] => {
+    "msg": "===== MCR-MCPORTAL-APP-01 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-514.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-MCPORTAL-APP-01 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-MCPORTAL-CRON] => {
+    "msg": "===== MCR-MCPORTAL-CRON STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-957.1.3.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-MCPORTAL-CRON STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-MC-PORTAL-FRONTEND-02] => {
+    "msg": "===== MCR-MC-PORTAL-FRONTEND-02 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-862.11.6.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-MC-PORTAL-FRONTEND-02 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-MCPORTAL-APP-02] => {
+    "msg": "===== MCR-MCPORTAL-APP-02 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-514.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-MCPORTAL-APP-02 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-MC-PORTAL-FRONTEND] => {
+    "msg": "===== MCR-MC-PORTAL-FRONTEND STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-862.11.6.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-MC-PORTAL-FRONTEND STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-MCPORTAL-LOS] => {
+    "msg": "===== MCR-MCPORTAL-LOS STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-957.1.3.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-MCPORTAL-LOS STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-MCPORTAL-LOS-02] => {
+    "msg": "===== MCR-MCPORTAL-LOS-02 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-957.1.3.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-MCPORTAL-LOS-02 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-MCPORTAL-LOS-03] => {
+    "msg": "===== MCR-MCPORTAL-LOS-03 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-957.1.3.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-MCPORTAL-LOS-03 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-MCPORTAL-LOS-04] => {
+    "msg": "===== MCR-MCPORTAL-LOS-04 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 3.10.0-957.1.3.el7.x86_64\n[SAFE] Kernel cu khong bi anh huong boi CVE-2026-31431.\n\n===== MCR-MCPORTAL-LOS-04 STDERR =====\n\n\n===== RETURN CODE =====\n0\n"
+}
+ok: [MCR-DATAHUB-NFS] => {
+    "msg": "===== MCR-DATAHUB-NFS STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 5.15.0-102-generic\n[OK] Module nguy hiem khong hoat dong va khong duoc ho tro trong nhan.\n\n===== MCR-DATAHUB-NFS STDERR =====\n\n\n===== RETURN CODE =====\n1\n"
+}
+ok: [Master-Datahub-01] => {
+    "msg": "===== Master-Datahub-01 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 5.15.0-134-generic\n[OK] Module nguy hiem khong hoat dong va khong duoc ho tro trong nhan.\n\n===== Master-Datahub-01 STDERR =====\n\n\n===== RETURN CODE =====\n1\n"
+}
+ok: [Worker-Datahub-01] => {
+    "msg": "===== Worker-Datahub-01 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 5.15.0-102-generic\n[OK] Module nguy hiem khong hoat dong va khong duoc ho tro trong nhan.\n\n===== Worker-Datahub-01 STDERR =====\n\n\n===== RETURN CODE =====\n1\n"
+}
+ok: [Worker-Datahub-03] => {
+    "msg": "===== Worker-Datahub-03 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 5.15.0-102-generic\n[OK] Module nguy hiem khong hoat dong va khong duoc ho tro trong nhan.\n\n===== Worker-Datahub-03 STDERR =====\n\n\n===== RETURN CODE =====\n1\n"
+}
+ok: [Master-CMM-01] => {
+    "msg": "===== Master-CMM-01 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 5.15.0-102-generic\n[OK] Module nguy hiem khong hoat dong va khong duoc ho tro trong nhan.\n\n===== Master-CMM-01 STDERR =====\n\n\n===== RETURN CODE =====\n1\n"
+}
+ok: [Worker-Datahub-02] => {
+    "msg": "===== Worker-Datahub-02 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 5.15.0-139-generic\n[OK] Module nguy hiem khong hoat dong va khong duoc ho tro trong nhan.\n\n===== Worker-Datahub-02 STDERR =====\n\n\n===== RETURN CODE =====\n1\n"
+}
+ok: [Worker-CMM-01] => {
+    "msg": "===== Worker-CMM-01 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 5.15.0-102-generic\n[OK] Module nguy hiem khong hoat dong va khong duoc ho tro trong nhan.\n\n===== Worker-CMM-01 STDERR =====\n\n\n===== RETURN CODE =====\n1\n"
+}
+ok: [Worker-Datahub-04] => {
+    "msg": "===== Worker-Datahub-04 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 5.15.0-102-generic\n[OK] Module nguy hiem khong hoat dong va khong duoc ho tro trong nhan.\n\n===== Worker-Datahub-04 STDERR =====\n\n\n===== RETURN CODE =====\n1\n"
+}
+ok: [MCR-CAMS-MASTER-01] => {
+    "msg": "===== MCR-CAMS-MASTER-01 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 5.15.0-164-generic\n[OK] Module nguy hiem khong hoat dong va khong duoc ho tro trong nhan.\n\n===== MCR-CAMS-MASTER-01 STDERR =====\n\n\n===== RETURN CODE =====\n1\n"
+}
+ok: [MCR-CAMS-MASTER-02] => {
+    "msg": "===== MCR-CAMS-MASTER-02 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 5.15.0-102-generic\n[OK] Module nguy hiem khong hoat dong va khong duoc ho tro trong nhan.\n\n===== MCR-CAMS-MASTER-02 STDERR =====\n\n\n===== RETURN CODE =====\n1\n"
+}
+ok: [MCR-CAMS-MASTER-03] => {
+    "msg": "===== MCR-CAMS-MASTER-03 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 5.15.0-102-generic\n[OK] Module nguy hiem khong hoat dong va khong duoc ho tro trong nhan.\n\n===== MCR-CAMS-MASTER-03 STDERR =====\n\n\n===== RETURN CODE =====\n1\n"
+}
+ok: [MCR-CAMS-WORKER-01] => {
+    "msg": "===== MCR-CAMS-WORKER-01 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 5.15.0-102-generic\n[OK] Module nguy hiem khong hoat dong va khong duoc ho tro trong nhan.\n\n===== MCR-CAMS-WORKER-01 STDERR =====\n\n\n===== RETURN CODE =====\n1\n"
+}
+ok: [MCR-CAMS-WORKER-02] => {
+    "msg": "===== MCR-CAMS-WORKER-02 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 5.15.0-102-generic\n[OK] Module nguy hiem khong hoat dong va khong duoc ho tro trong nhan.\n\n===== MCR-CAMS-WORKER-02 STDERR =====\n\n\n===== RETURN CODE =====\n1\n"
+}
+ok: [MCR-CAMS-WORKER-03] => {
+    "msg": "===== MCR-CAMS-WORKER-03 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 5.15.0-102-generic\n[OK] Module nguy hiem khong hoat dong va khong duoc ho tro trong nhan.\n\n===== MCR-CAMS-WORKER-03 STDERR =====\n\n\n===== RETURN CODE =====\n1\n"
+}
+ok: [MCR-CAMS-WORKER-04] => {
+    "msg": "===== MCR-CAMS-WORKER-04 STDOUT =====\n-------------------------------------------------------\nPHAN TICH HE THONG: 5.15.0-102-generic\n[OK] Module nguy hiem khong hoat dong va khong duoc ho tro trong nhan.\n\n===== MCR-CAMS-WORKER-04 STDERR =====\n\n\n===== RETURN CODE =====\n1\n"
+}
