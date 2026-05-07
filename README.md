@@ -6,6 +6,9 @@ Script tự động phát hiện và xử lý lỗ hổng **CVE-2026-31431** —
 
 (Created by TonyCao)
 
+
+![alt text](https://raw.githubusercontent.com/mgiay/CVE_2026_31431_FIXED/refs/heads/main/20260504_11.53.31.AM_8462_From-TheHackerNews.png)
+
 ## CVE-2026-31431 là gì?
 
 `algif_aead` là module kernel cung cấp giao diện AEAD (Authenticated Encryption with Associated Data) qua AF_ALG socket. Lỗ hổng cho phép kẻ tấn công cục bộ khai thác race condition trong quá trình gửi/nhận dữ liệu qua socket AF_ALG, dẫn đến **privilege escalation** (leo thang đặc quyền).
