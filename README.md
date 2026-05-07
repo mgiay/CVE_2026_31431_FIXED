@@ -1,261 +1,355 @@
-# CVE-2026-31431 Smart Check Script
+# CVE-2026-31431 — "Copy Fail"
 
 ## Tổng quan
 
-Script tự động phát hiện và xử lý lỗ hổng **CVE-2026-31431** — một lỗ hổng liên quan đến module kernel `algif_aead` (AF_ALG AEAD interface) trên các hệ thống Linux chạy kernel **>= 4.10**.
+**CVE-2026-31431** (biệt danh **"Copy Fail"**) là một lỗ hổng leo thang đặc quyền (Local Privilege Escalation — LPE) nghiêm trọng trong **Linux kernel**, tồn tại trong module `algif_aead` thuộc subsystem mật mã `AF_ALG` (userspace crypto API). Kẻ tấn công không có đặc quyền (unprivileged user) có thể khai thác để chiếm quyền **root** một cách đáng tin cậy, không cần race condition.
 
-(Created by TonyCao)
+Lỗ hổng được công bố chính thức ngày **22/04/2026** và đã bị khai thác thực tế trong tự nhiên. PoC (Proof-of-Concept) khai thác chỉ vỏn vẹn ~732 byte Python, hoạt động ổn định trên nhiều bản phân phối Linux khác nhau.
 
+---
 
-![alt text](https://raw.githubusercontent.com/mgiay/CVE_2026_31431_FIXED/refs/heads/main/20260504_11.53.31.AM_8462_From-TheHackerNews.png)
+## Thông tin CVE
 
-## CVE-2026-31431 là gì?
+| Thuộc tính              | Giá trị                                                 |
+| ----------------------- | ------------------------------------------------------- |
+| **Mã CVE**              | CVE-2026-31431                                          |
+| **Tên gọi**             | Copy Fail                                               |
+| **Loại lỗ hổng**        | Incorrect Resource Transfer Between Spheres (CWE-669)   |
+| **Điểm CVSS 3.1**       | **7.8 (HIGH)**                                          |
+| **Vector CVSS**         | `CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H`          |
+| **Phạm vi ảnh hưởng**   | Confidentiality HIGH, Integrity HIGH, Availability HIGH |
+| **Điều kiện khai thác** | Local access, low privileges, no user interaction       |
+| **CISA KEV**            | Đã thêm vào 01/05/2026 — hạn chót khắc phục 15/05/2026  |
+| **Trạng thái**          | Đã có bản vá, đang bị khai thác trong tự nhiên          |
 
-`algif_aead` là module kernel cung cấp giao diện AEAD (Authenticated Encryption with Associated Data) qua AF_ALG socket. Lỗ hổng cho phép kẻ tấn công cục bộ khai thác race condition trong quá trình gửi/nhận dữ liệu qua socket AF_ALG, dẫn đến **privilege escalation** (leo thang đặc quyền).
+### Điểm CVSS 3.1 — Giải thích
 
-- **Phạm vi ảnh hưởng:** Kernel Linux >= 4.10
-- **Điều kiện khai thác:** Module `algif_aead` phải được nạp (loaded) — hoặc attacker có quyền nạp module
-- **Mức độ nghiêm trọng:** CVSS 7.8 (HIGH) — Local Privilege Escalation
-- **Cách khắc phục:** Chặn (blacklist) module `algif_aead`, không cho phép nạp tự động hoặc thủ công
+| Thành phần               | Giá trị       | Ý nghĩa                             |
+| ------------------------ | ------------- | ----------------------------------- |
+| Attack Vector (AV)       | **L**ocal     | Cần truy cập cục bộ vào máy         |
+| Attack Complexity (AC)   | **L**ow       | Không cần điều kiện đặc biệt        |
+| Privileges Required (PR) | **L**ow       | Chỉ cần user thường (không root)    |
+| User Interaction (UI)    | **N**one      | Không cần nạn nhân tương tác        |
+| Scope (S)                | **U**nchanged | Giới hạn trong kernel               |
+| Confidentiality (C)      | **H**igh      | Đọc được toàn bộ dữ liệu hệ thống   |
+| Integrity (I)            | **H**igh      | Ghi đè/toàn quyền sửa đổi hệ thống  |
+| Availability (A)         | **H**igh      | Có thể gây DoS/toàn quyền kiểm soát |
 
-## Cách thức hoạt động của script
+---
 
-### Sơ đồ luồng quyết định
+## Nguyên nhân kỹ thuật (Root Cause)
 
-```
-                  +-----------------------+
-                  |  Kiểm tra quyền root  |
-                  +-----------+-----------+
-                              |
-                  +-----------v-----------+
-                  | Parse kernel version  |
-                  | (uname -r)            |
-                  +-----------+-----------+
-                              |
-                  +-----------v---------------------------+
-                  |  Kernel >= 4.10 ?                     |
-                  +--+--------------------------------+---+
-                     |                                |
-                    NO                               YES
-                     |                                |
-           +---------v---------+          +-----------v-----------+
-           | [SAFE]             |          | /etc/modprobe.d/      |
-           | Kernel không bị    |          | cve-2026-31431.conf   |
-           | ảnh hưởng          |          | tồn tại?              |
-           | exit 0             |          +--+----------------+---+
-           +--------------------+             |                |
-                                             NO              YES
-                                              |                |
-                              +---------------v---+    +-------v----------+
-                              | lsmod có          |    | [INFO]           |
-                              | algif_aead?       |    | Đã được hardening|
-                              +--+-------------+--+    | exit 0           |
-                                 |             |       +------------------+
-                                NO            YES
-                                 |              |
-                      +----------v--+   +-------v----------+
-                      | [OK]        |   | [CRITICAL]       |
-                      | Module không|   | Module đang chạy |
-                      | được nạp    |   | + kernel lỗi     |
-                      | exit 1      |   | exit 2           |
-                      +-------------+   +-------+----------+
-                                                |
-                              +-----------------v-----------------+
-                              |  Flag đang dùng?                  |
-                              +--+-----------+--------+--------+--+
-                                 |           |        |        |
-                            --check     --scan     --fix  (không flag)
-                                 |           |        |        |
-                           In kết quả   Hỏi xác    Tự động  Hiển thị
-                           + exit 2     nhận rồi   sửa +    hướng dẫn
-                                        sửa        exit 0
+### Bối cảnh
+
+Lỗ hổng tồn tại trong **`algif_aead`** — một module của Linux kernel cung cấp giao diện socket (`AF_ALG`) cho các thao tác mã hóa **AEAD** (Authenticated Encryption with Associated Data) từ userspace.
+
+### Gốc rễ
+
+Một bản vá tối ưu hóa được đưa vào kernel vào **năm 2017** (commit `72548b093ee3`) đã cho phép thao tác mã hóa **in-place** (tại chỗ) trong `algif_aead` — tức là sử dụng cùng một vùng nhớ làm cả nguồn (source) và đích (destination) cho thao tác mật mã.
+
+Vấn đề nảy sinh khi giao diện socket `AF_ALG` tương tác với system call **`splice()`**. Khi một thao tác copy thất bại (failed copy), cơ chế xử lý lỗi không đúng cách trong đường dẫn in-place AEAD khiến kernel **ghi 4 byte có kiểm soát vào page cache** của bất kỳ file nào có thể đọc được.
+
+```text
+┌──────────────┐     splice()      ┌──────────┐     recv()      ┌──────────────┐
+│  File đọc    │ ───────────────▶  │  Pipe    │ ──────────────▶ │  AF_ALG      │
+│  (bất kỳ)    │                   │          │                 │  socket      │
+└──────────────┘                   └──────────┘                 └──────┬───────┘
+                                                                       │
+                                                               in-place AEAD
+                                                               sai đường dẫn
+                                                                       │
+                                                               ┌───────▼───────┐
+                                                               │  4-byte ghi   │
+                                                               │  vào page     │
+                                                               │  cache        │ 
+                                                               └───────────────┘
 ```
 
-### Các bước kiểm tra chi tiết
+### Mấu chốt
 
-| Bước | Hàm                        | Mô tả                                                                         |
-| ---- | -------------------------- | ----------------------------------------------------------------------------- |
-| 1    | `require_root`             | Kiểm tra UID = 0, nếu không thì exit 3                                        |
-| 2    | `parse_kernel`             | Trích xuất major.minor từ `uname -r`, dùng `LC_ALL=C sed` để tránh lỗi locale |
-| 3    | `is_vuln_kernel`           | So sánh: major > 4 hoặc (major = 4 và minor >= 10)                            |
-| 4    | `is_hardened`              | Kiểm tra file `/etc/modprobe.d/cve-2026-31431.conf` đã tồn tại chưa           |
-| 5    | `is_module_loaded`         | Dùng `lsmod \| grep -qw algif_aead`                                           |
-| 6    | `print_status`             | In kết quả theo 4 cấp, trả về exit code tương ứng                             |
-| 7    | `prompt_fix` / `apply_fix` | Tương tác hoặc tự động hardening                                              |
+- Kẻ tấn công sửa đổi **page cache trong RAM** của một file nhị phân setuid (ví dụ: `/usr/bin/su`) mà **không hề thay đổi file trên đĩa**.
+- Page cache được **chia sẻ giữa containers và host**, cho phép container breakout.
+- Cuộc tấn công là **deterministic** (tất định) — không phụ thuộc vào race condition.
+- Các cơ chế bảo vệ như **KASLR, SMEP, SELinux, AppArmor** đều không ngăn chặn được vì đây là lỗi logic ở tầng kernel, không phải lỗi bộ nhớ truyền thống.
 
-### Cơ chế hardening
+---
 
-Khi áp dụng bản vá, script thực hiện 3 hành động:
+## Phiên bản bị ảnh hưởng
 
-1. **Tạo file cấu hình modprobe** tại `/etc/modprobe.d/cve-2026-31431.conf`:
+### Kernel Linux
 
-   ```
-   install algif_aead /bin/false
-   blacklist algif_aead
-   ```
+Tất cả các kernel từ **4.14** trở lên (phát hành từ 2017) cho đến khi được vá:
 
-   - `install algif_aead /bin/false` — mỗi khi có lệnh yêu cầu nạp module, kernel sẽ chạy `/bin/false` thay vì nạp thật, khiến thao tác luôn thất bại
-   - `blacklist algif_aead` — ngăn `udev` và các tool tự động nạp module
+| Dải phiên bản     | Đã vá từ |
+| ----------------- | -------- |
+| 4.14 → 5.10.x     | 5.10.254 |
+| 5.11 → 5.15.x     | 5.15.204 |
+| 5.16 → 6.1.x      | 6.1.170  |
+| 6.2 → 6.6.x       | 6.6.137  |
+| 6.7 → 6.12.x      | 6.12.85  |
+| 6.13 → 6.18.x     | 6.18.22  |
+| 6.19.x            | 6.19.12  |
+| 7.0-rc1 → 7.0-rc6 | 7.0-rc7+ |
 
-2. **Gỡ module khỏi memory** — `modprobe -r algif_aead` (bỏ qua lỗi nếu module không được nạp)
+### Bản phân phối bị ảnh hưởng
 
-3. **Rebuild initramfs** — để đảm bảo module không bị nạp sớm trong quá trình boot:
-   - Ubuntu/Debian: `update-initramfs -u -k <kernel-hien-tai>`
-   - CentOS/RHEL: `dracut -f --kver <kernel-hien-tai>`
+| Phân phối                            | Trạng thái                                         |
+| ------------------------------------ | -------------------------------------------------- |
+| **Ubuntu** (24.04 LTS, ...)          | Đã có bản vá                                       |
+| **RHEL** (8.x, 9.x, 10.x)            | Đã có bản vá (RHEL 9: RHSA-2026:13565, 04/05/2026) |
+| **Amazon Linux** (2, 2023)           | Đã có bản vá                                       |
+| **SUSE Linux** (15, 16)              | Đã có bản vá                                       |
+| **Debian** (các bản gần đây)         | Đã có bản vá                                       |
+| **Fedora**                           | Đã có bản vá                                       |
+| **Arch Linux**                       | Đã có bản vá                                       |
+| **CloudLinux** (8, 9, 10)            | Đã có bản vá                                       |
+| **OpenShift Container Platform 4.x** | Đã có bản vá                                       |
 
-> **Lưu ý:** Script chỉ rebuild initramfs cho kernel **hiện tại**, không phải tất cả kernel, giúp rút ngắn thời gian từ vài phút xuống vài giây.
+---
 
-## Hướng dẫn sử dụng
+## Cơ chế khai thác (Exploitation)
 
-### Cài đặt & chạy lần đầu
+### Điều kiện tiên quyết
+
+1. **Truy cập cục bộ** (local access) với tư cách user thường (không root)
+2. Module `AF_ALG` / `algif_aead` phải được kích hoạt (thường được biên dịch trực tiếp vào kernel)
+3. **Không cần**: root trong container, kernel module tùy chỉnh, quyền network, hay capability đặc biệt
+
+### Chuỗi tấn công (5 giai đoạn)
+
+| Giai đoạn         | Mô tả                                                                                                                                                        |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **1. Recon**      | Kiểm tra phiên bản kernel để xác định có dễ bị tấn công không                                                                                                |
+| **2. Tooling**    | Script Python nhỏ gọn (~732 byte), chỉ dùng syscall chuẩn, không cần biên dịch                                                                               |
+| **3. Execution**  | Chạy với tư cách user thường hoặc tiến trình container bị compromise                                                                                         |
+| **4. Corruption** | Mở `AF_ALG` socket → `sendmsg()` với AAD đặc biệt → `splice()` qua pipe → `recv()` trả về `EBADMSG` → ghi 4 byte có kiểm soát vào page cache của file setuid |
+| **5. Escalation** | Sửa page cache của `/etc/passwd` hoặc `/usr/bin/su` → UID bị đổi thành 0 → gọi `su` để có root shell                                                         |
+
+### Mã khai thác công khai
+
+- **Repo GitHub**: `rootsecdev/cve_2026_31431` (detector + exploit)
+- **Repo GitHub**: `theori-io/copy-fail-CVE-2026-31431` (732-byte PoC)
+- **Trang disclosure**: `copy.fail`
+
+---
+
+## Tác động (Impact)
+
+| Khía cạnh                | Mức độ                                          |
+| ------------------------ | ----------------------------------------------- |
+| **Leo thang đặc quyền**  | User thường → root (UID 0)                      |
+| **Container breakout**   | Container → host root                           |
+| **Môi trường đa tenant** | Một tenant compromised → toàn bộ node bị chiếm  |
+| **CI/CD pipeline**       | Job CI độc hại → root trên runner               |
+| **Máy chủ SSH shared**   | Một user → root toàn hệ thống                   |
+| **Cloud/Kubernetes**     | Cross-container, cross-pod privilege escalation |
+
+**Đây là lỗ hổng LPE nguy hiểm nhất trên Linux kể từ Dirty Pipe (CVE-2022-0847).**
+
+---
+
+## Phát hiện & IOC (Indicators of Compromise)
+
+IOC (Indicators of Compromise) là thuật ngữ trong an ninh mạng, chỉ các **dấu hiệu cho thấy hệ thống đã bị xâm nhập hoặc khai thác**. Trong ngữ cảnh CVE-2026-31431 (Copy Fail), IOC giúp trả lời câu hỏi: *"Hệ thống của tôi đã thực sự bị tấn công qua lỗ hổng này chưa?"* — khác với việc chỉ kiểm tra *"hệ thống có nằm trong vùng ảnh hưởng không"*.
+
+Bên dưới là 6 nhóm IOC chính, được sử dụng bởi script `CVE-2026-31431-CHECKER.sh --scan-ioc`. Hầu hết các kiểm tra IOC đều yêu cầu **quyền root** vì phải đọc file trong `/root`, `/home/*`, audit log, auth log, hoặc dùng `lsof` để thấy tiến trình của user khác.
+
+### Nhóm 1: File exploit trên đĩa — Phát hiện công cụ tấn công
+
+Quét các thư mục `/tmp`, `/var/tmp`, `/dev/shm`, `/home`, `/root`, `/opt` tìm:
+
+| IOC | Mô tả |
+|-----|-------|
+| `test_cve_2026_31431.py` | Script detector — dùng để kiểm tra kernel có dễ bị tấn công không |
+| `exploit_cve_2026_31431.py` | Script khai thác LPE — sửa page cache để chiếm root |
+| `copy_fail_exp.py` | PoC độc lập ~732 byte — hoạt động cross-distro |
+| `rootsecdev/cve_2026_31431` | Repository GitHub chứa detector + exploit |
+| `theori-io/copy-fail-CVE-2026-31431` | Repository GitHub của Theori (đơn vị phát hiện) |
+
+> **Cần root vì**: `/root` và `/home/*` chỉ root mới có quyền đọc toàn bộ.
+
+### Nhóm 2: Shell history — Truy vết lịch sử dòng lệnh
+
+Đọc `.bash_history` và `.zsh_history` của **tất cả user** (bao gồm root), tìm keyword:
+
+- `CVE-2026-31431`
+- `copy.fail`
+- `copy_fail`
+
+Sự xuất hiện của các keyword này trong history là dấu hiệu kẻ tấn công (hoặc người dùng) đã từng nghiên cứu hoặc thực thi exploit.
+
+> **Cần root vì**: File history nằm trong home directory riêng của từng user, bị giới hạn quyền đọc.
+
+### Nhóm 3: Process đang dùng AF_ALG — Phát hiện exploit đang chạy
+
+Dùng `lsof` để liệt kê tất cả tiến trình đang mở **AF_ALG socket**. AF_ALG socket từ tiến trình không đặc quyền (non-root) là dấu hiệu rất đáng ngờ — đây chính là interface mà exploit sử dụng để kích hoạt lỗi in-place AEAD.
+
+Ngoài ra còn giám sát:
+- Truy cập thuật toán `authencesn(hmac(sha256),cbc(aes))` từ non-root context
+- System call `splice()` qua pipe vào AF_ALG socket
+- `recv()` trả về `EBADMSG` trên AF_ALG socket — dấu hiệu AEAD auth check thất bại
+- Marker `PWND` trong output (detector beacon xác nhận page cache đã bị sửa)
+
+> **Cần root vì**: `lsof` chỉ hiển thị tiến trình của user khác khi chạy với quyền root.
+
+### Nhóm 4: Page-cache integrity — IOC đặc thù nhất của Copy Fail
+
+Đây là **IOC quan trọng và đặc thù nhất** của CVE-2026-31431. Cơ chế hoạt động:
+
+```
+Lần chạy 1:   Tạo baseline (snapshot)
+              cp /etc/passwd          → /etc/passwd.cve202631431_snapshot
+              cp /usr/bin/su          → /usr/bin/su.cve202631431_snapshot
+              cp /usr/bin/sudo        → /usr/bin/sudo.cve202631431_snapshot
+              cp /bin/su              → /bin/su.cve202631431_snapshot
+
+Lần chạy 2:   So sánh MD5 hash giữa file thật và snapshot
+              Nếu KHÁC NHAU → page cache đã bị sửa trong RAM
+                               (file trên đĩa thực tế KHÔNG hề thay đổi!)
+              Nếu GIỐNG NHAU → an toàn, không có dấu hiệu bị can thiệp
+```
+
+Cơ chế này lợi dụng bản chất của Copy Fail: exploit **chỉ sửa page cache trong RAM**, không chạm vào ổ đĩa. So sánh hash giữa 2 thời điểm giúp phát hiện sự thay đổi bất thường trong page cache. Snapshot cũ hơn 24h sẽ tự động bị xóa để tạo lại baseline mới, tránh false positive do cập nhật hệ thống hợp pháp.
+
+> **Cần root vì**: File setuid (`/usr/bin/su`, `/etc/passwd`) yêu cầu quyền root để tạo snapshot và so sánh.
+
+### Nhóm 5: Audit log — Phát hiện leo thang đặc quyền bất thường
+
+Dùng `ausearch` để kiểm tra audit log, tìm:
+
+- Sự kiện leo thang lên **UID 0** (root) mà **không có** bản ghi `sudo` hoặc `su` tương ứng
+- Syscall audit record cho thấy tiến trình thường đột ngột chạy với `euid=0`
+
+Đây là dấu hiệu điển hình của LPE: một tiến trình user thường bỗng nhiên có root mà không qua cơ chế hợp pháp nào.
+
+> **Cần root vì**: `ausearch` cần quyền root để đọc kernel audit log.
+
+### Nhóm 6: Auth log — Phát hiện root shell bất thường
+
+Đọc `/var/log/auth.log` (Debian/Ubuntu) hoặc `/var/log/secure` (RHEL/SUSE), đếm:
+
+- Số lần **root login** (SSH key, password) gần đây — nếu >5 lần là đáng ngờ
+- Pattern: user thường SSH vào → ngay sau đó có lệnh chạy với UID 0
+- Root shell từ các context không tương tác: CI runner, container, service account
+
+> **Cần root vì**: File auth log (`/var/log/auth.log`, `/var/log/secure`) thường có permission `0600`, chỉ root đọc được.
+
+### Bảng tổng hợp IOC
+
+| # | Nhóm IOC | Kỹ thuật phát hiện | Mức độ tin cậy | Yêu cầu root |
+|---|----------|-------------------|----------------|-------------|
+| 1 | File exploit | `find` quét filesystem | **Cao** — file rõ ràng | Có |
+| 2 | Shell history | `grep` keyword trong `.bash_history` | **Cao** — bằng chứng lịch sử | Có |
+| 3 | AF_ALG process | `lsof` + kiểm tra syscall | **Trung bình** — có thể false positive | Có |
+| 4 | Page-cache integrity | So sánh MD5 hash qua 2 lần chạy | **Rất cao** — đặc thù Copy Fail | Có |
+| 5 | Audit log | `ausearch` tìm UID 0 bất thường | **Trung bình** — cần auditd bật | Có |
+| 6 | Auth log | Đếm root login + phân tích pattern | **Thấp-Trung bình** — dễ false positive | Có |
+
+---
+
+## Khắc phục & Giảm thiểu (Remediation)
+
+### Ưu tiên 1: Vá kernel (0–24 giờ)
+
+Cập nhật kernel lên phiên bản đã vá từ vendor:
+
+| Phân phối             | Kernel đã vá tối thiểu                   |
+| --------------------- | ---------------------------------------- |
+| **Ubuntu 24.04 LTS**  | `6.17.0-1007-aws`                        |
+| **Amazon Linux 2023** | `6.18.8-9.213.amzn2023`                  |
+| **RHEL 10.1**         | `6.12.0-124.45.1.el10_1`                 |
+| **SUSE 16**           | `6.12.0-160000.9-default`                |
+| **CloudLinux 8**      | `kernel-4.18.0-553.121.1.lve.el8.x86_64` |
+| **CloudLinux 9**      | `kernel-5.14.0-611.49.2.el9_7`           |
+| **CloudLinux 10**     | `kernel-6.12.0-124.52.2.el10_1`          |
+
+### Ưu tiên 2: Biện pháp tạm thời (nếu chưa thể vá)
+
+Thêm tham số kernel boot để vô hiệu hóa module bị ảnh hưởng:
 
 ```bash
-# Tải script
-curl -O https://your-server.com/cve_2026_31431_smart_check.sh
+# Cách 1: Chặn toàn bộ algif_aead
+initcall_blacklist=algif_aead_init
 
-# Cấp quyền thực thi
-chmod +x cve_2026_31431_smart_check.sh
+# Cách 2: Chặn toàn bộ giao diện af_alg  
+initcall_blacklist=af_alg_init
 
-# Xem hướng dẫn
-./cve_2026_31431_smart_check.sh
-# hoặc
-./cve_2026_31431_smart_check.sh --help
+# Cách 3: Chặn thuật toán bị ảnh hưởng
+initcall_blacklist=crypto_authenc_esn_module_init
 ```
 
-### Các flag và tình huống sử dụng
+> **Lưu ý**: `modprobe.d` blacklist **không hiệu quả** vì `algif_aead` thường được biên dịch trực tiếp vào kernel (built-in), không phải module rời. Cần reboot sau khi thêm tham số.
 
-#### 1. `--check` — Kiểm tra không tương tác (dùng cho monitoring, cron, CI/CD)
+### Ưu tiên 3: Hardening bổ sung
+
+- Đảm bảo **SELinux** ở chế độ enforcing
+- Vô hiệu hóa SSH không cần thiết
+- Chạy workload dưới dạng non-root
+- Hạn chế quyền `oc debug` trong OpenShift
+- Sử dụng Security Context Constraints mặc định
+- Áp dụng network isolation cho các container
+
+### Kiểm tra khả năng bị ảnh hưởng
 
 ```bash
-./cve_2026_31431_smart_check.sh --check
+# Kiểm tra phiên bản kernel hiện tại
+uname -r
+
+# Kiểm tra AF_ALG có được hỗ trợ không
+grep -q af_alg /proc/crypto && echo "AF_ALG available — potentially vulnerable"
+
+# Kiểm tra thuật toán bị ảnh hưởng
+grep -q authencesn /proc/crypto && echo "authencesn available — vulnerable algorithm present"
 ```
 
-- **Không** sửa đổi gì trên hệ thống
-- Trả về exit code để script gọi có thể rẽ nhánh
-- Phù hợp: chạy định kỳ qua cron, tích hợp vào pipeline
+---
 
-```bash
-# Ví dụ: dùng trong cron, gửi cảnh báo nếu phát hiện lỗ hổng
-0 6 * * * /opt/scripts/cve_2026_31431_smart_check.sh --check || \
-  echo "CANH BAO CVE-2026-31431" | mail -s "Security Alert" admin@company.com
-```
+## Dòng thời gian (Timeline)
 
-#### 2. `--scan` — Chạy tương tác (dùng khi sysadmin trực tiếp kiểm tra)
+| Ngày           | Sự kiện                                                             |
+| -------------- | ------------------------------------------------------------------- |
+| **2017**       | Commit `72548b093ee3` đưa lỗ hổng vào kernel (tối ưu in-place AEAD) |
+| **01/04/2026** | Bản vá được commit vào Linux mainline (commit `a664bf3d603d`)       |
+| **22/04/2026** | CVE-2026-31431 được công bố chính thức                              |
+| **25/04/2026** | Upstream gán điểm CVSS 7.8                                          |
+| **30/04/2026** | Red Hat công bố security bulletin RHSB-2026-02                      |
+| **01/05/2026** | CISA thêm vào danh sách KEV (Known Exploited Vulnerabilities)       |
+| **01/05/2026** | Microsoft công bố phân tích chi tiết                                |
+| **04/05/2026** | Bản vá đầu tiên cho RHEL 9 (RHSA-2026:13565)                        |
+| **04/05/2026** | Qualys xác nhận khai thác trong tự nhiên                            |
+| **06/05/2026** | NVD cập nhật CPE configuration cho tất cả dải kernel                |
+| **15/05/2026** | **Hạn chót** CISA KEV yêu cầu các cơ quan liên bang Hoa Kỳ phải vá  |
 
-```bash
-./cve_2026_31431_smart_check.sh --scan
-```
+---
 
-- Hiển thị trạng thái chi tiết
-- Nếu phát hiện CRITICAL: hỏi xác nhận trước khi sửa (y/n hoặc dialog whiptail nếu có)
-- Phù hợp: sysadmin đang ngồi terminal, muốn kiểm tra thủ công từng máy
+## So sánh với các lỗ hổng Linux kernel nổi tiếng khác
 
-#### 3. `--fix` — Tự động vá (dùng khi triển khai hàng loạt)
+| Lỗ hổng                        | Năm  | CVSS | Cơ chế                                  | Độ phức tạp khai thác |
+| ------------------------------ | ---- | ---- | --------------------------------------- | --------------------- |
+| **Dirty COW** (CVE-2016-5195)  | 2016 | 7.8  | Race condition trong copy-on-write      | Trung bình            |
+| **Dirty Pipe** (CVE-2022-0847) | 2022 | 7.8  | Ghi đè pipe buffer vào page cache       | Thấp                  |
+| **Copy Fail** (CVE-2026-31431) | 2026 | 7.8  | In-place AEAD ghi 4 byte vào page cache | **Rất thấp**          |
 
-```bash
-./cve_2026_31431_smart_check.sh --fix
-```
+Copy Fail tương đồng với Dirty Pipe ở chỗ đều lợi dụng page cache để sửa file setuid mà không chạm vào đĩa, nhưng cơ chế khác biệt ở chỗ dùng sai đường dẫn in-place crypto thay vì pipe buffer.
 
-- Tự động áp dụng hardening nếu phát hiện lỗ hổng, **không hỏi**
-- Nếu hệ thống đã an toàn hoặc đã được hardening, không làm gì thêm
-- Phù hợp: triển khai qua Ansible, Salt, Puppet hoặc script deploy hàng loạt
+---
 
-```bash
-# Ví dụ: triển khai hàng loạt qua SSH loop
-for host in server-{01..50}.internal; do
-  ssh root@"$host" 'bash -s' < cve_2026_31431_smart_check.sh --fix
-done
-```
+## Nguồn tham khảo
 
-### Bảng exit code
+- [NVD - CVE-2026-31431](https://nvd.nist.gov/vuln/detail/CVE-2026-31431)
+- [Microsoft Security Blog - Copy Fail Analysis](https://www.microsoft.com/en-us/security/blog/2026/05/01/cve-2026-31431-copy-fail-vulnerability-enables-linux-root-privilege-escalation/)
+- [Red Hat Security Bulletin RHSB-2026-02](https://access.redhat.com/security/vulnerabilities/RHSB-2026-02)
+- [CERT-EU Security Advisory 2026-005](https://cert.europa.eu/publications/security-advisories/2026-005/)
+- [Ubuntu Blog - Copy Fail Vulnerability Fixes](https://ubuntu.com/blog/copy-fail-vulnerability-fixes-available)
+- [Kodem Security - Copy Fail Breakdown & Remediation Runbook](https://www.kodemsecurity.com/resources/cve-2026-31431-copy-fail-linux-kernel-lpe-breakdown-and-remediation-runbook)
+- [Sophos - PoC Exploit Available for Copy Fail](https://www.sophos.com/en-us/blog/proof-of-concept-exploit-available-for-linux-copy-fail-cve-2026-31431)
+- [Tenable - Copy Fail FAQ](https://www.tenable.com/blog/copy-fail-cve-2026-31431-frequently-asked-questions-about-linux-kernel-privilege-escalation)
+- [Bugcrowd - What We Know About Copy Fail](https://www.bugcrowd.com/blog/what-we-know-about-copy-fail-cve-2026-31431/)
+- [Qualys ThreatPROTECT - Exploited in the Wild](https://threatprotect.qualys.com/2026/05/04/linux-kernel-vulnerability-exploited-in-the-wild-copy-fail-cve-2026-31431/)
+- [LinuxFabrik - Patch Your Linux Kernel Now](https://www.linuxfabrik.ch/en/blog/kernel-luecke-cve-2026-31431)
+- [Trang disclosure chính thức](https://copy.fail)
+- [GitHub: theori-io/copy-fail-CVE-2026-31431](https://github.com/theori-io/copy-fail-CVE-2026-31431)
 
-| Exit code | Ý nghĩa                                                       | Hành động khuyến nghị         |
-| --------- | ------------------------------------------------------------- | ----------------------------- |
-| **0**     | An toàn — kernel không bị ảnh hưởng, hoặc đã được hardening   | Không cần làm gì              |
-| **1**     | Module không hoạt động, nhưng kernel nằm trong vùng ảnh hưởng | Cân nhắc hardening phòng ngừa |
-| **2**     | **NGUY HIỂM** — module đang chạy trên kernel bị ảnh hưởng     | Cần hardening ngay            |
-| **3**     | Lỗi — không đủ quyền root                                     | Chạy lại với sudo hoặc root   |
+---
 
-### Kiểm tra sau khi hardening
-
-Sau khi chạy `--fix` hoặc `--scan`, cần **reboot** để đảm bảo module không còn trong memory:
-
-```bash
-# Kiểm tra lại sau reboot
-./cve_2026_31431_smart_check.sh --check
-echo $?   # Phải trả về 0
-```
-
-Xác nhận thủ công:
-
-```bash
-# Module không được liệt kê trong lsmod
-lsmod | grep algif_aead    # Phải trả về rỗng
-
-# File cấu hình đã tồn tại
-cat /etc/modprobe.d/cve-2026-31431.conf
-
-# Thử nạp module — phải thất bại
-modprobe algif_aead 2>&1   # Phải báo lỗi
-```
-
-## Khả năng tương thích
-
-| Distro        | Phiên bản đã test                 | initramfs tool     |
-| ------------- | --------------------------------- | ------------------ |
-| Ubuntu        | 16.04, 18.04, 20.04, 22.04, 24.04 | `update-initramfs` |
-| Debian        | 9, 10, 11, 12                     | `update-initramfs` |
-| CentOS / RHEL | 7, 8, 9                           | `dracut`           |
-| Rocky Linux   | 8, 9                              | `dracut`           |
-| AlmaLinux     | 8, 9                              | `dracut`           |
-
-## Tự động hóa & tích hợp
-
-### Chạy định kỳ qua cron
-
-```bash
-# Kiểm tra hàng ngày lúc 6:07 sáng, log ra syslog
-7 6 * * * root /opt/scripts/cve_2026_31431_smart_check.sh --check || true
-```
-
-Kết quả được ghi vào syslog với tag `CVE-2026-31431`, có thể xem bằng:
-
-```bash
-journalctl -t CVE-2026-31431 --since "1 day ago"
-# hoặc
-grep CVE-2026-31431 /var/log/syslog
-```
-
-### Tích hợp Ansible
-
-```yaml
-- name: Kiem tra CVE-2026-31431
-  script: cve_2026_31431_smart_check.sh --fix
-  register: cve_result
-  changed_when: "'CRITICAL' in cve_result.stdout"
-
-- name: Reboot neu can
-  reboot:
-    msg: "Reboot sau khi hardening CVE-2026-31431"
-  when: cve_result.changed
-```
-
-### Tích hợp monitoring (Nagios/Icinga/Sensu)
-
-```bash
-# Script đã tương thích sẵn với Nagios-style check nhờ exit code
-# 0 = OK, 1 = WARNING, 2 = CRITICAL
-./cve_2026_31431_smart_check.sh --check
-```
-
-## Gỡ bỏ hardening (nếu cần)
-
-Trong trường hợp cần khôi phục module `algif_aead`:
-
-```bash
-rm /etc/modprobe.d/cve-2026-31431.conf
-modprobe algif_aead
-update-initramfs -u -k "$(uname -r)"   # Ubuntu/Debian
-# hoặc
-dracut -f --kver "$(uname -r)"         # CentOS/RHEL
-```
+> **Tóm lại**: CVE-2026-31431 (Copy Fail) là lỗ hổng leo thang đặc quyền local trên Linux kernel, ảnh hưởng đến hầu hết các bản phân phối Linux từ 2017. Lỗ hổng cho phép user thường chiếm root thông qua việc lợi dụng đường dẫn in-place AEAD sai trong `algif_aead` để ghi đè page cache. PoC siêu nhỏ gọn (~732 byte), không cần race condition, và có thể vượt container. **Cần vá kernel ngay lập tức.**
