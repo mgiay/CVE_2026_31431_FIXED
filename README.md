@@ -158,13 +158,13 @@ Bên dưới là 6 nhóm IOC chính, được sử dụng bởi script `CVE-2026
 
 Quét các thư mục `/tmp`, `/var/tmp`, `/dev/shm`, `/home`, `/root`, `/opt` tìm:
 
-| IOC | Mô tả |
-|-----|-------|
-| `test_cve_2026_31431.py` | Script detector — dùng để kiểm tra kernel có dễ bị tấn công không |
-| `exploit_cve_2026_31431.py` | Script khai thác LPE — sửa page cache để chiếm root |
-| `copy_fail_exp.py` | PoC độc lập ~732 byte — hoạt động cross-distro |
-| `rootsecdev/cve_2026_31431` | Repository GitHub chứa detector + exploit |
-| `theori-io/copy-fail-CVE-2026-31431` | Repository GitHub của Theori (đơn vị phát hiện) |
+| IOC                                  | Mô tả                                                             |
+| ------------------------------------ | ----------------------------------------------------------------- |
+| `test_cve_2026_31431.py`             | Script detector — dùng để kiểm tra kernel có dễ bị tấn công không |
+| `exploit_cve_2026_31431.py`          | Script khai thác LPE — sửa page cache để chiếm root               |
+| `copy_fail_exp.py`                   | PoC độc lập ~732 byte — hoạt động cross-distro                    |
+| `rootsecdev/cve_2026_31431`          | Repository GitHub chứa detector + exploit                         |
+| `theori-io/copy-fail-CVE-2026-31431` | Repository GitHub của Theori (đơn vị phát hiện)                   |
 
 > **Cần root vì**: `/root` và `/home/*` chỉ root mới có quyền đọc toàn bộ.
 
@@ -185,6 +185,7 @@ Sự xuất hiện của các keyword này trong history là dấu hiệu kẻ t
 Dùng `lsof` để liệt kê tất cả tiến trình đang mở **AF_ALG socket**. AF_ALG socket từ tiến trình không đặc quyền (non-root) là dấu hiệu rất đáng ngờ — đây chính là interface mà exploit sử dụng để kích hoạt lỗi in-place AEAD.
 
 Ngoài ra còn giám sát:
+
 - Truy cập thuật toán `authencesn(hmac(sha256),cbc(aes))` từ non-root context
 - System call `splice()` qua pipe vào AF_ALG socket
 - `recv()` trả về `EBADMSG` trên AF_ALG socket — dấu hiệu AEAD auth check thất bại
@@ -236,14 +237,14 @@ Dùng `ausearch` để kiểm tra audit log, tìm:
 
 ### Bảng tổng hợp IOC
 
-| # | Nhóm IOC | Kỹ thuật phát hiện | Mức độ tin cậy | Yêu cầu root |
-|---|----------|-------------------|----------------|-------------|
-| 1 | File exploit | `find` quét filesystem | **Cao** — file rõ ràng | Có |
-| 2 | Shell history | `grep` keyword trong `.bash_history` | **Cao** — bằng chứng lịch sử | Có |
-| 3 | AF_ALG process | `lsof` + kiểm tra syscall | **Trung bình** — có thể false positive | Có |
-| 4 | Page-cache integrity | So sánh MD5 hash qua 2 lần chạy | **Rất cao** — đặc thù Copy Fail | Có |
-| 5 | Audit log | `ausearch` tìm UID 0 bất thường | **Trung bình** — cần auditd bật | Có |
-| 6 | Auth log | Đếm root login + phân tích pattern | **Thấp-Trung bình** — dễ false positive | Có |
+| #   | Nhóm IOC             | Kỹ thuật phát hiện                   | Mức độ tin cậy                          | Yêu cầu root |
+| --- | -------------------- | ------------------------------------ | --------------------------------------- | ------------ |
+| 1   | File exploit         | `find` quét filesystem               | **Cao** — file rõ ràng                  | Có           |
+| 2   | Shell history        | `grep` keyword trong `.bash_history` | **Cao** — bằng chứng lịch sử            | Có           |
+| 3   | AF_ALG process       | `lsof` + kiểm tra syscall            | **Trung bình** — có thể false positive  | Có           |
+| 4   | Page-cache integrity | So sánh MD5 hash qua 2 lần chạy      | **Rất cao** — đặc thù Copy Fail         | Có           |
+| 5   | Audit log            | `ausearch` tìm UID 0 bất thường      | **Trung bình** — cần auditd bật         | Có           |
+| 6   | Auth log             | Đếm root login + phân tích pattern   | **Thấp-Trung bình** — dễ false positive | Có           |
 
 ---
 
